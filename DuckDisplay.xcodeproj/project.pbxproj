@@ -12,6 +12,13 @@
 		74621BF64A2D166A7C81149D /* DuckDisplayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE80976E9C54C2FF9D4F530 /* DuckDisplayApp.swift */; };
 		B2AC4E86ED0A94FEE003F637 /* ExternalWorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A313BDE2F42E76D54EE75F20 /* ExternalWorkspaceView.swift */; };
 		E63B7819D58C60A43BEA9CB1 /* ExternalDisplayMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCBB7686DAFC1C0E32D14A9 /* ExternalDisplayMonitor.swift */; };
+		A10000000000000000000001 /* WindowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* WindowModel.swift */; };
+		A10000000000000000000002 /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* WindowManager.swift */; };
+		A10000000000000000000003 /* DesktopCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* DesktopCanvas.swift */; };
+		A10000000000000000000004 /* AppWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* AppWindow.swift */; };
+		A10000000000000000000005 /* WindowTitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* WindowTitleBar.swift */; };
+		A10000000000000000000006 /* DockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* DockView.swift */; };
+		A10000000000000000000007 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* AppLauncher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +28,13 @@
 		665E2214DC20E1673D52C845 /* ControlCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlCenterView.swift; sourceTree = "<group>"; };
 		A313BDE2F42E76D54EE75F20 /* ExternalWorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalWorkspaceView.swift; sourceTree = "<group>"; };
 		9BCBB7686DAFC1C0E32D14A9 /* ExternalDisplayMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalDisplayMonitor.swift; sourceTree = "<group>"; };
+		A20000000000000000000001 /* WindowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowModel.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* DesktopCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesktopCanvas.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* AppWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWindow.swift; sourceTree = "<group>"; };
+		A20000000000000000000005 /* WindowTitleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTitleBar.swift; sourceTree = "<group>"; };
+		A20000000000000000000006 /* DockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockView.swift; sourceTree = "<group>"; };
+		A20000000000000000000007 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -28,6 +42,8 @@
 			isa = PBXGroup;
 			children = (
 				426526FE6581D1A3FBFFDB81 /* WorkspaceStore.swift */,
+				A20000000000000000000001 /* WindowModel.swift */,
+				A20000000000000000000002 /* WindowManager.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -64,6 +80,11 @@
 			children = (
 				A313BDE2F42E76D54EE75F20 /* ExternalWorkspaceView.swift */,
 				9BCBB7686DAFC1C0E32D14A9 /* ExternalDisplayMonitor.swift */,
+				A20000000000000000000003 /* DesktopCanvas.swift */,
+				A20000000000000000000004 /* AppWindow.swift */,
+				A20000000000000000000005 /* WindowTitleBar.swift */,
+				A20000000000000000000006 /* DockView.swift */,
+				A20000000000000000000007 /* AppLauncher.swift */,
 			);
 			path = Display;
 			sourceTree = "<group>";
@@ -142,6 +163,13 @@
 				B2AC4E86ED0A94FEE003F637 /* ExternalWorkspaceView.swift in Sources */,
 				E63B7819D58C60A43BEA9CB1 /* ExternalDisplayMonitor.swift in Sources */,
 				18D8C91B131A090107BAA7D5 /* WorkspaceStore.swift in Sources */,
+				A10000000000000000000001 /* WindowModel.swift in Sources */,
+				A10000000000000000000002 /* WindowManager.swift in Sources */,
+				A10000000000000000000003 /* DesktopCanvas.swift in Sources */,
+				A10000000000000000000004 /* AppWindow.swift in Sources */,
+				A10000000000000000000005 /* WindowTitleBar.swift in Sources */,
+				A10000000000000000000006 /* DockView.swift in Sources */,
+				A10000000000000000000007 /* AppLauncher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +191,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.ducklh.duckdisplay;
 				PRODUCT_NAME = DuckDisplay;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -252,7 +280,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.ducklh.duckdisplay;
 				PRODUCT_NAME = DuckDisplay;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
