@@ -11,6 +11,7 @@
 		22978204B4E9E77EA6F2E7B4 /* ControlCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665E2214DC20E1673D52C845 /* ControlCenterView.swift */; };
 		74621BF64A2D166A7C81149D /* DuckDisplayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE80976E9C54C2FF9D4F530 /* DuckDisplayApp.swift */; };
 		B2AC4E86ED0A94FEE003F637 /* ExternalWorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A313BDE2F42E76D54EE75F20 /* ExternalWorkspaceView.swift */; };
+		E63B7819D58C60A43BEA9CB1 /* ExternalDisplayMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCBB7686DAFC1C0E32D14A9 /* ExternalDisplayMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		426526FE6581D1A3FBFFDB81 /* WorkspaceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceStore.swift; sourceTree = "<group>"; };
 		665E2214DC20E1673D52C845 /* ControlCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlCenterView.swift; sourceTree = "<group>"; };
 		A313BDE2F42E76D54EE75F20 /* ExternalWorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalWorkspaceView.swift; sourceTree = "<group>"; };
+		9BCBB7686DAFC1C0E32D14A9 /* ExternalDisplayMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalDisplayMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				A313BDE2F42E76D54EE75F20 /* ExternalWorkspaceView.swift */,
+				9BCBB7686DAFC1C0E32D14A9 /* ExternalDisplayMonitor.swift */,
 			);
 			path = Display;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 				22978204B4E9E77EA6F2E7B4 /* ControlCenterView.swift in Sources */,
 				74621BF64A2D166A7C81149D /* DuckDisplayApp.swift in Sources */,
 				B2AC4E86ED0A94FEE003F637 /* ExternalWorkspaceView.swift in Sources */,
+				E63B7819D58C60A43BEA9CB1 /* ExternalDisplayMonitor.swift in Sources */,
 				18D8C91B131A090107BAA7D5 /* WorkspaceStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

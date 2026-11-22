@@ -1,19 +1,17 @@
-macOS
-
+# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
 ._*
 
-Xcode
-
-Build generated
-
+# Xcode
 build/
 DerivedData/
+*.xcarchive/
+*.xcresult/
+*.app/
 
-Various settings
-
+# User-specific settings
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -24,21 +22,18 @@ Various settings
 !default.perspectivev3
 xcuserdata/
 
-Other
-
+# Other Xcode-generated files
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
 
-Obj-C/Swift specific
-
+# Objective-C / Swift build artifacts
 *.hmap
 *.ipa
 *.dSYM.zip
 *.dSYM
 
-Swift Package Manager
-
+# Swift Package Manager
 .build/
 .swiftpm/
 Packages/
@@ -46,19 +41,16 @@ Package.pins
 Package.resolved
 *.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 
-CocoaPods (nếu sau này có dùng)
-
+# CocoaPods
 Pods/
 
-Fastlane
-
+# Fastlane
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots//*.png
 fastlane/test_output
 
-IDE / Editors
-
+# IDE / editors
 .vscode/
 .idea/
 *.swp

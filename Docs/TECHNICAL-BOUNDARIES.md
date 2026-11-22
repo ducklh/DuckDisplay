@@ -9,6 +9,7 @@ Use Apple's public external-display accessory API:
 - External scene role: `windowExternalDisplayNonInteractive`
 
 The external display is an app-owned, full-screen, non-interactive presentation surface.
+UIKit's public `UIScreen.didConnectNotification`, `didDisconnectNotification`, and `modeDidChangeNotification` notifications are used only to report connected-screen details in Control Center. The accessory scene itself remains system-managed. Its SwiftUI geometry is the source of truth for workspace layout; screen bounds and mode metadata are diagnostic rather than a substitute for scene size.
 
 ## Unsupported goal on iPad Gen 10
 
@@ -20,4 +21,14 @@ A third-party app cannot turn the A14 iPad into a system-wide interactive extend
 - The HDMI display shows content different from the iPad UI.
 - Changes on the iPad update the external content.
 - HDMI disconnect/reconnect does not crash the app.
+- Connection, disconnection, and mode changes update the reported external-screen details.
+- Orientation and resolution changes relayout the external workspace using its current scene geometry.
 - No jailbreak, private API, or Mac-side host is required.
+
+## Known limitations
+
+- iPadOS decides whether to create and present the non-interactive external scene. Detecting a connected `UIScreen` does not guarantee that the accessory scene can be presented.
+- The screen list and mode notifications provide display metadata; the accessory scene may have different safe-area or point dimensions. Use the scene's `GeometryReader` for rendering.
+- The accessory is non-interactive and is not an independent system application. This app cannot host native Safari, Telegram, Terminal, or other third-party system apps as separate monitor apps.
+- Monitor adapters, EDID negotiation, refresh rates, protected content, and available resolutions are controlled by iPadOS and the hardware. Unsupported combinations may leave the accessory unavailable.
+- A14 hardware does not gain system-wide Stage Manager external-display support from this app.
