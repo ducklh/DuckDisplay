@@ -3,6 +3,7 @@ import SwiftUI
 struct DesktopCanvas: View {
     @EnvironmentObject private var workspace: WorkspaceStore
     @EnvironmentObject private var windowManager: WindowManager
+    @EnvironmentObject private var pointerManager: PointerManager
     @State private var isLauncherPresented = false
 
     private let dockHeight: CGFloat = 88
@@ -71,6 +72,16 @@ struct DesktopCanvas: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                 .zIndex(Double(Int.max - 1))
+
+                if pointerManager.isVisible {
+                    Image(systemName: pointerSymbol)
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundStyle(pointerColor)
+                        .shadow(color: .black.opacity(0.7), radius: 3, x: 0, y: 1)
+                        .position(pointerManager.position)
+                        .allowsHitTesting(false)
+                        .zIndex(Double(Int.max))
+                }
             }
             .onAppear {
                 windowManager.updateDesktopBounds(desktopBounds)
@@ -108,5 +119,29 @@ struct DesktopCanvas: View {
                 .padding(.bottom, 100)
         }
         .ignoresSafeArea()
+    }
+
+    private var pointerSymbol: String {
+        switch pointerManager.visualState {
+        case .hidden, .hovering, .pressed:
+            "arrow.up.left"
+        case .dragging:
+            "arrow.up.and.down.and.arrow.left.and.right"
+        case .resizing:
+            "arrow.up.left.and.arrow.down.right"
+        }
+    }
+
+    private var pointerColor: Color {
+        switch pointerManager.visualState {
+        case .hidden, .hovering:
+            .white
+        case .pressed:
+            .yellow
+        case .dragging:
+            .cyan
+        case .resizing:
+            .orange
+        }
     }
 }

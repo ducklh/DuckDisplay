@@ -4,9 +4,29 @@ import Combine
 
 @main
 struct DuckDisplayApp: App {
-    @StateObject private var workspace = WorkspaceStore()
-    @StateObject private var externalDisplay = ExternalDisplayMonitor()
-    @StateObject private var windowManager = WindowManager()
+    @StateObject private var workspace: WorkspaceStore
+    @StateObject private var externalDisplay: ExternalDisplayMonitor
+    @StateObject private var windowManager: WindowManager
+    @StateObject private var pointerManager: PointerManager
+    @StateObject private var mouseInput: MouseInputHandler
+
+    init() {
+        let workspace = WorkspaceStore()
+        let externalDisplay = ExternalDisplayMonitor()
+        let windowManager = WindowManager()
+        let pointerManager = PointerManager()
+
+        _workspace = StateObject(wrappedValue: workspace)
+        _externalDisplay = StateObject(wrappedValue: externalDisplay)
+        _windowManager = StateObject(wrappedValue: windowManager)
+        _pointerManager = StateObject(wrappedValue: pointerManager)
+        _mouseInput = StateObject(
+            wrappedValue: MouseInputHandler(
+                windowManager: windowManager,
+                pointerManager: pointerManager
+            )
+        )
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -14,6 +34,8 @@ struct DuckDisplayApp: App {
                 .environmentObject(workspace)
                 .environmentObject(externalDisplay)
                 .environmentObject(windowManager)
+                .environmentObject(pointerManager)
+                .environmentObject(mouseInput)
                 .onAppear {
                     externalDisplay.refresh()
                 }
@@ -32,6 +54,8 @@ struct DuckDisplayApp: App {
                             .environmentObject(workspace)
                             .environmentObject(externalDisplay)
                             .environmentObject(windowManager)
+                            .environmentObject(pointerManager)
+                            .environmentObject(mouseInput)
                     }
                 }
         }

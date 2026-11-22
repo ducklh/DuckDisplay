@@ -7,7 +7,8 @@ A SwiftUI iPad app for iPadOS 27 that presents an app-owned desktop workspace on
 - `DuckDisplayApp`, `ExternalDisplayMonitor`, `ControlCenterView`, `ExternalWorkspaceView`, and the shared `WorkspaceStore` remain the app and display lifecycle foundation.
 - `WindowManager` is the single source of window state shared between the iPad control surface and the external workspace. `WindowModel` records the app ID, title, frame, minimum size, z-index, minimized/maximized/focused flags, and saved frame for restore.
 - `DesktopCanvas`, `AppWindow`, `WindowTitleBar`, `DockView`, and `AppLauncher` render the desktop-style workspace. The sample Dashboard, Browser, Notes, and Terminal surfaces are app-owned examples, not separate system applications.
-- The iPad's Control Center can open, focus, minimize, restore, maximize, close, move, and resize windows. It is the only supported input surface. External workspace content has hit testing disabled; external touch, pointer, keyboard, and mouse interactions are not supported or claimed.
+- The iPad's Control Center can open, focus, minimize, restore, maximize, close, move, and resize windows. The optional virtual-pointer pad receives SwiftUI hover and drag gestures only while the physical pointer is over that iPad app view, then draws a mapped pointer on the passive external workspace. It is not a system pointer and cannot track the pointer while it is over HDMI.
+- External workspace content continues to have hit testing disabled. The `ExternalNonInteractiveAccessory` scene does not provide guaranteed mouse, touch, or keyboard input; native cursor movement, clicks, and cross-display pointer transfer are not supported or claimed.
 - Window placement and sizing use the accessory scene's current SwiftUI geometry, not `UIScreen` pixel metadata. Windows are clamped to the desktop and resized to fit when scene bounds change.
 - Display connection/mode diagnostics and the shared workspace message/clock controls are retained.
 
@@ -16,7 +17,8 @@ A SwiftUI iPad app for iPadOS 27 that presents an app-owned desktop workspace on
 This is **app-level extended content**, not a system-wide extended iPad desktop or a general-purpose host for other apps.
 
 - It cannot move Safari, Telegram, Settings, or other third-party iPad apps onto the monitor.
-- `ExternalNonInteractiveAccessory` does not provide an interactive external window manager. Do not rely on an external pointer, touch, or keyboard being routed to the accessory. Use the iPad Control Center for reliable window operations.
+- `ExternalNonInteractiveAccessory` does not provide an interactive external window manager. The virtual-pointer pad is an app-drawn, best-effort control mapped from pointer events inside the iPad app; it cannot receive movement or clicks while the mouse is over HDMI, or forward the native system cursor to that display.
+- SwiftUI `onContinuousHover` and drag gestures are used on the primary app scene. Their behavior with a USB mouse/trackpad must still be verified on the target iPad; no global or cross-scene input capture is used.
 - It does not unlock Stage Manager external-display support on A14.
 - It does not require jailbreak, private APIs, a Mac host, or a network connection.
 - Actual availability and behavior must be tested on the target iPadOS 27 build and a wired display.
@@ -54,15 +56,18 @@ Run on an iPad Gen 10 with a USB-C HDMI/DisplayPort adapter and a physical monit
 2. **No display at launch:** Open DuckDisplay with HDMI disconnected. Confirm the iPad Control Center and window controls remain usable and no external display is reported.
 3. **Connect and initial window:** Connect HDMI while the app is foregrounded. Confirm display bounds/mode are reported and iPadOS presents the accessory with its initial Dashboard window.
 4. **Multiple windows:** Open multiple instances and different app surfaces from the iPad control surface. Confirm every window has a unique entry and the external workspace shows each visible window.
-5. **Move and bounds:** Use the iPad Move controls to verify window movement and confirm an attempted move cannot leave the desktop permanently inaccessible. External workspace content should not respond to pointer/touch input.
-6. **Resize and minimum size:** Use iPad Make larger/smaller actions. Confirm minimum sizing and desktop bounds are enforced.
-7. **Minimize and restore:** Minimize a window from the iPad and restore it from the dock or the iPad window list.
-8. **Focus and z-order:** Focus windows in different orders from the iPad and confirm the selected window renders in front.
-9. **Maximize and restore size:** Maximize a window, restore it, and confirm its prior frame returns (clamped if the display bounds changed).
-10. **Close:** Close the focused and non-focused windows. Confirm closed windows are removed and do not reappear after reconnect.
-11. **Resolution/orientation:** Rotate the iPad or switch the monitor between supported modes/resolutions. Confirm windows stay within the new scene bounds and maximized windows follow the new size.
-12. **Disconnect/reconnect:** Unplug and reconnect HDMI. Confirm the iPad remains responsive, window state remains managed, and no display/window status is falsely shown as active.
-13. **Unsupported configuration:** Try an unsupported adapter/mode. Confirm Control Center remains usable and does not claim that a workspace is active when iPadOS has not presented it.
+5. **Virtual pointer (iPad only):** Connect a USB mouse. Move it inside the Control Center's virtual-pointer pad and confirm the app-drawn pointer appears over the HDMI workspace. Move the physical pointer outside the pad and onto HDMI; DuckDisplay must not claim to follow it there or show a system pointer it does not own.
+6. **Window interaction:** With the mouse over the iPad pad, click a window to focus, drag a title bar to move, use the lower-right corner to resize, and double-click the title bar to maximize/restore. Verify Escape cancels an active drag and right-click opens the pad's window context menu. Confirm external workspace hit testing remains disabled.
+7. **Mouse buttons and scrolling:** On the iPad, check USB mouse click, double-click, right-click, and scroll wheel. On HDMI, confirm native clicks and scrolling do not control the app. Scrolling over the virtual pad is not forwarded to the external workspace.
+8. **Keyboard:** Check Escape cancellation and hardware keyboard input on the iPad. Keyboard input on HDMI is not supported.
+9. **Resize and minimum size:** Use iPad Make larger/smaller actions. Confirm minimum sizing and desktop bounds are enforced.
+10. **Minimize and restore:** Minimize a window from the iPad and restore it from the dock or the iPad window list.
+11. **Focus and z-order:** Focus windows in different orders from the iPad and confirm the selected window renders in front.
+12. **Maximize and restore size:** Maximize a window, restore it, and confirm its prior frame returns (clamped if the display bounds changed).
+13. **Close:** Close the focused and non-focused windows. Confirm closed windows are removed and do not reappear after reconnect.
+14. **Resolution/orientation:** Rotate the iPad or switch the monitor between supported modes/resolutions. Confirm windows stay within the new scene bounds and maximized windows follow the new size.
+15. **Disconnect/reconnect:** Unplug and reconnect HDMI. Confirm the iPad remains responsive, window state remains managed, and no display/window status is falsely shown as active.
+16. **Unsupported configuration:** Try an unsupported adapter/mode. Confirm Control Center remains usable and does not claim that a workspace is active when iPadOS has not presented it.
 
 ## Project structure
 
@@ -72,6 +77,7 @@ DuckDisplay/
 ├── Core/WorkspaceStore.swift
 ├── Core/WindowModel.swift
 ├── Core/WindowManager.swift
+├── Core/PointerInteraction.swift
 ├── Display/DesktopCanvas.swift
 ├── Display/AppWindow.swift
 ├── Display/WindowTitleBar.swift
@@ -79,7 +85,9 @@ DuckDisplay/
 ├── Display/AppLauncher.swift
 ├── Display/ExternalDisplayMonitor.swift
 ├── Display/ExternalWorkspaceView.swift
-└── UI/ControlCenterView.swift
+└── UI/
+    ├── ControlCenterView.swift
+    └── VirtualPointerPad.swift
 ```
 
 ## Build verification

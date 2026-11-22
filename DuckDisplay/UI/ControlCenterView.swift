@@ -4,13 +4,15 @@ struct ControlCenterView: View {
     @EnvironmentObject private var workspace: WorkspaceStore
     @EnvironmentObject private var externalDisplay: ExternalDisplayMonitor
     @EnvironmentObject private var windowManager: WindowManager
+    @EnvironmentObject private var pointerManager: PointerManager
+    @EnvironmentObject private var mouseInput: MouseInputHandler
 
     var body: some View {
         NavigationStack {
             Form {
                 Section("External display") {
                     Label("Connect a USB-C to HDMI / DisplayPort adapter", systemImage: "cable.connector")
-                    Text("When an external display is available, iPadOS presents DuckDisplay's separate, non-interactive workspace there.")
+                    Text("iPadOS presents DuckDisplay's separate, non-interactive workspace there. The HDMI scene does not receive mouse events.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
 
@@ -33,6 +35,20 @@ struct ControlCenterView: View {
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
+                }
+
+                Section("Virtual workspace pointer") {
+                    Text("Move a USB mouse or trackpad pointer inside this pad to move an app-drawn pointer on the workspace. This is not a system pointer and cannot follow the mouse when it leaves the iPad app for HDMI.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    VirtualPointerPad(
+                        pointerManager: pointerManager,
+                        mouseInput: mouseInput,
+                        workspaceBounds: windowManager.desktopBounds
+                    )
+                    Text("Click a window to focus, drag its title bar to move, use the lower-right corner to resize, and double-click its title bar to maximize or restore. Press Escape to cancel a drag. Right-click the pad for window actions. Launch apps from the iPad's Applications section; scrolling is not forwarded to HDMI.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
 
                 Section("Choose external content") {
@@ -128,7 +144,7 @@ struct ControlCenterView: View {
                             .accessibilityLabel("Actions for \(window.title)")
                         }
                     }
-                    Text("The iPad control surface is interactive. The external accessory is non-interactive; window gestures there are best-effort and may not receive input.")
+                    Text("Window actions are available from the iPad and virtual pointer pad. The external accessory remains passive.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }

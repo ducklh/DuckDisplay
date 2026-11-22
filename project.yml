@@ -26,3 +26,12 @@ targets:
         INFOPLIST_KEY_UIRequiresFullScreen: NO
     scheme:
       gatherCoverageData: false
+      testTargets:
+        - DuckDisplayTests
+  DuckDisplayTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: DuckDisplayTests
+    dependencies:
+      - target: DuckDisplay

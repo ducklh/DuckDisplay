@@ -19,6 +19,10 @@
 		A10000000000000000000005 /* WindowTitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* WindowTitleBar.swift */; };
 		A10000000000000000000006 /* DockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* DockView.swift */; };
 		A10000000000000000000007 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* AppLauncher.swift */; };
+		A10000000000000000000008 /* PointerInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* PointerInteraction.swift */; };
+		A10000000000000000000009 /* VirtualPointerPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* VirtualPointerPad.swift */; };
+		A10000000000000000000010 /* PointerInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000010 /* PointerInteractionTests.swift */; };
+		A10000000000000000000011 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A20000000000000000000012 /* XCTest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +39,11 @@
 		A20000000000000000000005 /* WindowTitleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTitleBar.swift; sourceTree = "<group>"; };
 		A20000000000000000000006 /* DockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockView.swift; sourceTree = "<group>"; };
 		A20000000000000000000007 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
+		A20000000000000000000008 /* PointerInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerInteraction.swift; sourceTree = "<group>"; };
+		A20000000000000000000009 /* VirtualPointerPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPointerPad.swift; sourceTree = "<group>"; };
+		A20000000000000000000010 /* PointerInteractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerInteractionTests.swift; sourceTree = "<group>"; };
+		A20000000000000000000011 /* DuckDisplayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DuckDisplayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000000000000000000012 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -44,14 +53,32 @@
 				426526FE6581D1A3FBFFDB81 /* WorkspaceStore.swift */,
 				A20000000000000000000001 /* WindowModel.swift */,
 				A20000000000000000000002 /* WindowManager.swift */,
+				A20000000000000000000008 /* PointerInteraction.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000001 /* DuckDisplayTests */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000010 /* PointerInteractionTests.swift */,
+			);
+			path = DuckDisplayTests;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000003 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000012 /* XCTest.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		76B2CED3A96E6FDC9E0372EE /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				665E2214DC20E1673D52C845 /* ControlCenterView.swift */,
+				A20000000000000000000009 /* VirtualPointerPad.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -60,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				24DCE36EE2D63D7DF558B818 /* DuckDisplay.app */,
+				A20000000000000000000011 /* DuckDisplayTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				C088E27F185DEBCC0C5215C2 /* DuckDisplay */,
+				A30000000000000000000001 /* DuckDisplayTests */,
+				A30000000000000000000003 /* Frameworks */,
 				BEDC18BA64686725F381BE66 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,6 +136,24 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXContainerItemProxy section */
+		A80000000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A76FD4165F7FCA9EC27C58F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 78D8F786DD7303A1043A50DF;
+			remoteInfo = DuckDisplay;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		A80000000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 78D8F786DD7303A1043A50DF /* DuckDisplay */;
+			targetProxy = A80000000000000000000002 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXNativeTarget section */
 		78D8F786DD7303A1043A50DF /* DuckDisplay */ = {
@@ -124,6 +172,23 @@
 			productName = DuckDisplay;
 			productReference = 24DCE36EE2D63D7DF558B818 /* DuckDisplay.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A30000000000000000000002 /* DuckDisplayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A50000000000000000000001 /* Build configuration list for PBXNativeTarget "DuckDisplayTests" */;
+			buildPhases = (
+				A60000000000000000000001 /* Sources */,
+				A70000000000000000000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A80000000000000000000001 /* PBXTargetDependency */,
+			);
+			name = DuckDisplayTests;
+			productName = DuckDisplayTests;
+			productReference = A20000000000000000000011 /* DuckDisplayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -149,6 +214,7 @@
 			projectRoot = "";
 			targets = (
 				78D8F786DD7303A1043A50DF /* DuckDisplay */,
+				A30000000000000000000002 /* DuckDisplayTests */,
 			);
 		};
 /* End PBXProject section */
@@ -170,6 +236,24 @@
 				A10000000000000000000005 /* WindowTitleBar.swift in Sources */,
 				A10000000000000000000006 /* DockView.swift in Sources */,
 				A10000000000000000000007 /* AppLauncher.swift in Sources */,
+				A10000000000000000000008 /* PointerInteraction.swift in Sources */,
+				A10000000000000000000009 /* VirtualPointerPad.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A60000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000010 /* PointerInteractionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A70000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000011 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +431,36 @@
 			};
 			name = Release;
 		};
+		A40000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.ducklh.duckdisplayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DuckDisplay.app/DuckDisplay";
+			};
+			name = Debug;
+		};
+		A40000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.ducklh.duckdisplayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DuckDisplay.app/DuckDisplay";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -364,6 +478,15 @@
 			buildConfigurations = (
 				861A45547E8A42311DB696BE /* Debug */,
 				DBD68C2D97CF3928271F5D9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A50000000000000000000001 /* Build configuration list for PBXNativeTarget "DuckDisplayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A40000000000000000000001 /* Debug */,
+				A40000000000000000000002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

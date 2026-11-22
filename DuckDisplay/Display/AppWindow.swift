@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct AppWindow: View {
+    @EnvironmentObject private var pointerManager: PointerManager
+
     let window: WindowModel
     let bounds: CGSize
     let workspace: WorkspaceStore
@@ -71,7 +73,10 @@ struct AppWindow: View {
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .stroke(window.isFocused ? Color.cyan.opacity(0.8) : Color.white.opacity(0.16), lineWidth: window.isFocused ? 1.5 : 1)
+                .stroke(
+                    window.isFocused ? Color.cyan.opacity(0.8) : isPointerHovering ? Color.white.opacity(0.48) : Color.white.opacity(0.16),
+                    lineWidth: window.isFocused || isPointerHovering ? 1.5 : 1
+                )
         }
         .shadow(color: .black.opacity(window.isFocused ? 0.34 : 0.22), radius: window.isFocused ? 24 : 14, x: 0, y: 12)
         .overlay(alignment: .bottomTrailing) {
@@ -172,6 +177,11 @@ struct AppWindow: View {
         case .none:
             ContentUnavailableView("Unknown app", systemImage: "questionmark.square.dashed")
         }
+    }
+
+    private var isPointerHovering: Bool {
+        guard pointerManager.visualState == .hovering else { return false }
+        return CGRect(origin: window.position, size: window.size).contains(pointerManager.position)
     }
 }
 
